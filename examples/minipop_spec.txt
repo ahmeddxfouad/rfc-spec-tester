@@ -1,0 +1,31 @@
+1 Introduction
+MiniPOP is a tiny, educational protocol inspired by POP3.
+It is line-oriented. Client sends commands; server replies with +OK or -ERR.
+
+2 Commands and Replies
+2.1 USER Command
+The client MUST send: "USER <username>".
+If accepted, the server replies with "+OK". Otherwise "-ERR".
+
+2.2 PASS Command
+The client MUST send: "PASS <password>".
+PASS is only valid after a successful USER.
+If accepted, server replies "+OK" and the session becomes authenticated.
+
+2.3 STAT Command
+STAT is only valid in the authenticated state.
+If valid, server replies "+OK <count> <size>". Otherwise "-ERR".
+
+2.4 QUIT Command
+QUIT is valid in any state.
+Server replies "+OK" and closes the connection.
+
+3 State Machine
+The session begins in START.
+After USER and +OK, the session transitions to USER_OK.
+After PASS and +OK, the session transitions to AUTH.
+STAT keeps the session in AUTH.
+QUIT transitions to END.
+
+4 Errors
+If STAT is sent in START or USER_OK, the server MUST reply with "-ERR bad sequence".
