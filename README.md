@@ -38,7 +38,6 @@ If `rfc2spec` is not on your PATH, use:
 ```bash
 python -m rfc2spec.cli <command> ...
 ```
-```
 
 You should see passing conversations like:
 - `USER alice` → `+OK`
